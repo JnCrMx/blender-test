@@ -371,6 +371,22 @@ class CheckerTextureNode : public TextureNode {
   }
 };
 
+class JuliaTextureNode : public TextureNode {
+ public:
+  SHADER_NODE_CLASS(JuliaTextureNode)
+
+  NODE_SOCKET_API(int, iterations)
+  NODE_SOCKET_API(float, breakout)
+  NODE_SOCKET_API(bool, use_smooth)
+  NODE_SOCKET_API(float3, vector)
+  NODE_SOCKET_API(float3, rule)
+
+  virtual int get_group()
+  {
+    return NODE_GROUP_LEVEL_2;
+  }
+};
+
 class BrickTextureNode : public TextureNode {
  public:
   SHADER_NODE_CLASS(BrickTextureNode)

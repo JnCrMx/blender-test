@@ -5373,6 +5373,32 @@ static void def_sh_tex_checker(StructRNA *srna)
   def_sh_tex(srna);
 }
 
+static void def_sh_tex_julia(StructRNA *srna)
+{
+  PropertyRNA *prop;
+
+  RNA_def_struct_sdna_from(srna, "NodeTexJulia", "storage");
+  def_sh_tex(srna);
+
+  prop = RNA_def_property(srna, "iterations", PROP_INT, PROP_NONE);
+  RNA_def_property_int_sdna(prop, NULL, "iterations");
+  RNA_def_property_range(prop, 0, 255);
+  RNA_def_property_ui_text(prop, "Iterations", "Number of iterations to do");
+  RNA_def_property_update(prop, 0, "rna_Node_update");
+
+  prop = RNA_def_property(srna, "breakout", PROP_FLOAT, PROP_NONE);
+  RNA_def_property_float_sdna(prop, NULL, "breakout");
+  RNA_def_property_range(prop, 0, ((FloatPropertyRNA*)prop)->hardmax);
+  RNA_def_property_ui_text(prop, "Breakout", "Breakout distance from origin");
+  RNA_def_property_update(prop, 0, "rna_Node_update");
+
+  prop = RNA_def_property(srna, "use_smooth", PROP_BOOLEAN, PROP_NONE);
+  RNA_def_property_boolean_sdna(prop, NULL, "use_smooth", 1);
+  RNA_def_property_boolean_default(prop, true);
+  RNA_def_property_ui_text(prop, "Smooth Colors", "Smooth resulting colors");
+  RNA_def_property_update(prop, 0, "rna_Node_update");
+}
+
 static void def_sh_tex_brick(StructRNA *srna)
 {
   PropertyRNA *prop;

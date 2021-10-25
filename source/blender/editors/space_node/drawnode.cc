@@ -848,6 +848,13 @@ static void node_shader_buts_tex_magic(uiLayout *layout, bContext *UNUSED(C), Po
   uiItemR(layout, ptr, "turbulence_depth", DEFAULT_FLAGS, nullptr, ICON_NONE);
 }
 
+static void node_shader_buts_tex_julia(uiLayout *layout, bContext *UNUSED(C), PointerRNA *ptr)
+{
+  uiItemR(layout, ptr, "iterations", DEFAULT_FLAGS, nullptr, ICON_NONE);
+  uiItemR(layout, ptr, "breakout", DEFAULT_FLAGS, nullptr, ICON_NONE);
+  uiItemR(layout, ptr, "use_smooth", DEFAULT_FLAGS, nullptr, ICON_NONE);
+}
+
 static void node_shader_buts_tex_brick(uiLayout *layout, bContext *UNUSED(C), PointerRNA *ptr)
 {
   uiLayout *col;
@@ -1235,6 +1242,9 @@ static void node_shader_set_butfunc(bNodeType *ntype)
       break;
     case SH_NODE_TEX_MAGIC:
       ntype->draw_buttons = node_shader_buts_tex_magic;
+      break;
+    case SH_NODE_TEX_JULIA:
+      ntype->draw_buttons = node_shader_buts_tex_julia;
       break;
     case SH_NODE_TEX_BRICK:
       ntype->draw_buttons = node_shader_buts_tex_brick;

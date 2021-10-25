@@ -38,8 +38,10 @@
 #include <ImfChannelList.h>
 #include <ImfCompression.h>
 #include <ImfCompressionAttribute.h>
+#include <ImfFrameBuffer.h>
 #include <ImfIO.h>
 #include <ImfInputFile.h>
+#include <ImfInt64.h>
 #include <ImfOutputFile.h>
 #include <ImfPixelType.h>
 #include <ImfStandardAttributes.h>

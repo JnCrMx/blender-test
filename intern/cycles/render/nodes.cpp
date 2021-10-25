@@ -1646,6 +1646,58 @@ void CheckerTextureNode::compile(OSLCompiler &compiler)
   compiler.add(this, "node_checker_texture");
 }
 
+
+/* Julia Texture */
+
+NODE_DEFINE(JuliaTextureNode)
+{
+  NodeType *type = NodeType::add("julia_texture", create, NodeType::SHADER);
+
+  TEXTURE_MAPPING_DEFINE(JuliaTextureNode);
+
+  SOCKET_IN_POINT(vector, "Vector", zero_float3(), SocketType::LINK_TEXTURE_GENERATED);
+  SOCKET_IN_POINT(rule, "Rule", zero_float3());
+  SOCKET_OUT_COLOR(color, "Color");
+
+  SOCKET_INT(iterations, "Iterations", 25);
+  SOCKET_FLOAT(breakout, "Breakout", 2.0);
+  SOCKET_BOOLEAN(use_smooth, "Smooth", true);
+
+  return type;
+}
+
+JuliaTextureNode::JuliaTextureNode() : TextureNode(get_node_type())
+{
+}
+
+void JuliaTextureNode::compile(SVMCompiler &compiler)
+{
+  ShaderInput *vector_in = input("Vector");
+  ShaderInput *rule_in = input("Rule");
+
+  ShaderOutput *color_out = output("Color");
+
+  int vector_offset = tex_mapping.compile_begin(compiler, vector_in);
+
+  compiler.add_node(NODE_TEX_JULIA,
+                    compiler.encode_uchar4(vector_offset,
+                                           compiler.stack_assign(rule_in),
+                                           iterations, !!use_smooth),
+                    compiler.encode_uchar4(compiler.stack_assign_if_linked(color_out)),
+                    __float_as_int(breakout));
+
+  tex_mapping.compile_end(compiler, vector_in, vector_offset);
+}
+
+void JuliaTextureNode::compile(OSLCompiler &compiler)
+{
+  tex_mapping.compile(compiler);
+  compiler.parameter(this, "iterations");
+  compiler.parameter(this, "breakout");
+  compiler.parameter(this, "use_smooth");
+  compiler.add(this, "node_tex_julia");
+}
+
 /* Brick Texture */
 
 NODE_DEFINE(BrickTextureNode)

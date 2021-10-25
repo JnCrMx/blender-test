@@ -115,6 +115,7 @@ extern char datatoc_gpu_shader_material_texture_coordinates_glsl[];
 extern char datatoc_gpu_shader_material_tex_voronoi_glsl[];
 extern char datatoc_gpu_shader_material_tex_wave_glsl[];
 extern char datatoc_gpu_shader_material_tex_white_noise_glsl[];
+extern char datatoc_gpu_shader_material_tex_julia_glsl[];
 extern char datatoc_gpu_shader_material_toon_glsl[];
 extern char datatoc_gpu_shader_material_translucent_glsl[];
 extern char datatoc_gpu_shader_material_transparent_glsl[];
@@ -506,6 +507,11 @@ static GPUMaterialLibrary gpu_shader_material_tex_white_noise_library = {
     .dependencies = {&gpu_shader_material_hash_library, NULL},
 };
 
+static GPUMaterialLibrary gpu_shader_material_tex_julia_library = {
+    .code = datatoc_gpu_shader_material_tex_julia_glsl,
+    .dependencies = {&gpu_shader_material_color_util_library, NULL},
+};
+
 static GPUMaterialLibrary gpu_shader_material_toon_library = {
     .code = datatoc_gpu_shader_material_toon_glsl,
     .dependencies = {&gpu_shader_material_diffuse_library, NULL},
@@ -661,6 +667,7 @@ static GPUMaterialLibrary *gpu_material_libraries[] = {
     &gpu_shader_material_tex_voronoi_library,
     &gpu_shader_material_tex_wave_library,
     &gpu_shader_material_tex_white_noise_library,
+    &gpu_shader_material_tex_julia_library,
     &gpu_shader_material_toon_library,
     &gpu_shader_material_translucent_library,
     &gpu_shader_material_transparent_library,

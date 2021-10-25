@@ -197,6 +197,7 @@ set(SRC_SVM_HEADERS
   svm/svm_attribute.h
   svm/svm_bevel.h
   svm/svm_blackbody.h
+  svm/svm_julia.h
   svm/svm_bump.h
   svm/svm_camera.h
   svm/svm_clamp.h

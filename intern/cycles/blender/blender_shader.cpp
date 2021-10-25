@@ -837,6 +837,16 @@ static ShaderNode *add_node(Scene *scene,
     get_tex_mapping(checker, b_texture_mapping);
     node = checker;
   }
+  else if (b_node.is_a(&RNA_ShaderNodeTexJulia)) {
+    BL::ShaderNodeTexJulia b_julia_node(b_node);
+    JuliaTextureNode *julia = graph->create_node<JuliaTextureNode>();
+    julia->set_iterations(b_julia_node.iterations());
+    julia->set_breakout(b_julia_node.breakout());
+    julia->set_use_smooth(b_julia_node.use_smooth());
+    BL::TexMapping b_texture_mapping(b_julia_node.texture_mapping());
+    get_tex_mapping(julia, b_texture_mapping);
+    node = julia;
+  }
   else if (b_node.is_a(&RNA_ShaderNodeTexBrick)) {
     BL::ShaderNodeTexBrick b_brick_node(b_node);
     BrickTextureNode *brick = graph->create_node<BrickTextureNode>();

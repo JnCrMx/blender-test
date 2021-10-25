@@ -916,6 +916,14 @@ typedef struct NodeTexChecker {
   NodeTexBase base;
 } NodeTexChecker;
 
+typedef struct NodeTexJulia {
+  NodeTexBase base;
+  int iterations;
+  float breakout;
+  char use_smooth;
+  char _pad[7];
+} NodeTexJulia;
+
 typedef struct NodeTexBrick {
   NodeTexBase base;
   int offset_freq, squash_freq;

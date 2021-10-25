@@ -167,6 +167,7 @@ CCL_NAMESPACE_END
 #include "kernel/svm/svm_aov.h"
 #include "kernel/svm/svm_attribute.h"
 #include "kernel/svm/svm_blackbody.h"
+#include "kernel/svm/svm_julia.h"
 #include "kernel/svm/svm_brick.h"
 #include "kernel/svm/svm_brightness.h"
 #include "kernel/svm/svm_bump.h"
@@ -465,6 +466,9 @@ ccl_device_noinline void svm_eval_nodes(
         break;
       case NODE_TEX_WHITE_NOISE:
         svm_node_tex_white_noise(kg, sd, stack, node.y, node.z, node.w, &offset);
+        break;
+      case NODE_TEX_JULIA:
+        svm_node_tex_julia(kg, sd, stack, node);
         break;
       case NODE_NORMAL:
         svm_node_normal(kg, sd, stack, node.y, node.z, node.w, &offset);
